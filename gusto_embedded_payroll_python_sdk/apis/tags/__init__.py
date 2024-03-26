@@ -1,0 +1,47 @@
+# do not import all endpoints into this module because that uses a lot of memory and stack frames
+# if you need the ability to import all endpoints from this module, import them with
+# from gusto_embedded_payroll_python_sdk.apis.tag_to_api import tag_to_api
+
+import enum
+
+
+class TagValues(str, enum.Enum):
+    PAYROLLS = "Payrolls"
+    COMPANIES = "Companies"
+    PAY_SCHEDULES = "Pay Schedules"
+    EMPLOYEES = "Employees"
+    EMPLOYEE_ADDRESSES = "Employee Addresses"
+    JOBS_AND_COMPENSATIONS = "Jobs and Compensations"
+    EMPLOYEE_EMPLOYMENTS = "Employee Employments"
+    CONTRACTORS = "Contractors"
+    COMPANY_BENEFITS = "Company Benefits"
+    EXTERNAL_PAYROLLS = "External Payrolls"
+    TIME_OFF_POLICIES = "Time Off Policies"
+    CONTRACTOR_PAYMENTS = "Contractor Payments"
+    HOLIDAY_PAY_POLICIES = "Holiday Pay Policies"
+    DEPARTMENTS = "Departments"
+    WEBHOOKS = "Webhooks"
+    EMPLOYEE_BENEFITS = "Employee Benefits"
+    LOCATIONS = "Locations"
+    EMPLOYEE_PAYMENT_METHOD = "Employee Payment Method"
+    EMPLOYEE_FORMS = "Employee Forms"
+    SIGNATORIES = "Signatories"
+    BANK_ACCOUNTS = "Bank Accounts"
+    EMPLOYEE_TAX_SETUP = "Employee Tax Setup"
+    EARNING_TYPES = "Earning Types"
+    CONTRACTOR_PAYMENT_METHOD = "Contractor Payment Method"
+    COMPANY_FORMS = "Company Forms"
+    GARNISHMENTS = "Garnishments"
+    CONTRACTOR_FORMS = "Contractor Forms"
+    TAX_REQUIREMENTS = "Tax Requirements"
+    INTROSPECTION = "Introspection"
+    PAYMENT_CONFIGS = "Payment Configs"
+    FEDERAL_TAX_DETAILS = "Federal Tax Details"
+    INDUSTRY_SELECTION = "Industry Selection"
+    RECOVERY_CASES = "Recovery Cases"
+    FLOWS = "Flows"
+    GENERATED_DOCUMENTS = "Generated Documents"
+    NOTIFICATIONS = "Notifications"
+    EVENTS = "Events"
+    INVOICES = "Invoices"
+    ACH_TRANSACTIONS = "ACH Transactions"

@@ -1,0 +1,11 @@
+from gusto_embedded_payroll_python_sdk.paths.v1_companies_company_uuid_external_payrolls_external_payroll_id.get import ApiForget
+from gusto_embedded_payroll_python_sdk.paths.v1_companies_company_uuid_external_payrolls_external_payroll_id.put import ApiForput
+from gusto_embedded_payroll_python_sdk.paths.v1_companies_company_uuid_external_payrolls_external_payroll_id.delete import ApiFordelete
+
+
+class V1CompaniesCompanyUuidExternalPayrollsExternalPayrollId(
+    ApiForget,
+    ApiForput,
+    ApiFordelete,
+):
+    pass

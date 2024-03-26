@@ -1,0 +1,431 @@
+import typing_extensions
+
+from gusto_embedded_payroll_python_sdk.paths import PathValues
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_token_info import V1TokenInfo
+from gusto_embedded_payroll_python_sdk.apis.paths.oauth_token import OauthToken
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_partner_managed_companies import V1PartnerManagedCompanies
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id import V1CompaniesCompanyId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_partner_managed_companies_company_uuid_migrate import V1PartnerManagedCompaniesCompanyUuidMigrate
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_partner_managed_companies_company_uuid_accept_terms_of_service import V1PartnerManagedCompaniesCompanyUuidAcceptTermsOfService
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_partner_managed_companies_company_uuid_retrieve_terms_of_service import V1PartnerManagedCompaniesCompanyUuidRetrieveTermsOfService
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_invoices_invoice_period import V1InvoicesInvoicePeriod
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_federal_tax_details import V1CompaniesCompanyIdFederalTaxDetails
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_industry_selection import V1CompaniesCompanyIdIndustrySelection
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_admins import V1CompaniesCompanyIdAdmins
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_signatories import V1CompaniesCompanyUuidSignatories
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_signatories_invite import V1CompaniesCompanyUuidSignatoriesInvite
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_signatories_signatory_uuid import V1CompaniesCompanyUuidSignatoriesSignatoryUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_onboarding_status import V1CompaniesCompanyUuidOnboardingStatus
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_finish_onboarding import V1CompaniesCompanyUuidFinishOnboarding
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_custom_fields import V1CompaniesCompanyIdCustomFields
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_flows import V1CompaniesCompanyUuidFlows
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_locations import V1CompaniesCompanyIdLocations
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_locations_location_id import V1LocationsLocationId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_locations_location_uuid_minimum_wages import V1LocationsLocationUuidMinimumWages
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_bank_accounts import V1CompaniesCompanyIdBankAccounts
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_bank_accounts_bank_account_uuid_verify import V1CompaniesCompanyIdBankAccountsBankAccountUuidVerify
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_external_payrolls import V1CompaniesCompanyUuidExternalPayrolls
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_external_payrolls_external_payroll_id import V1CompaniesCompanyUuidExternalPayrollsExternalPayrollId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_external_payrolls_external_payroll_id_calculate_taxes import V1CompaniesCompanyUuidExternalPayrollsExternalPayrollIdCalculateTaxes
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_external_payrolls_tax_liabilities import V1CompaniesCompanyUuidExternalPayrollsTaxLiabilities
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_external_payrolls_tax_liabilities_finish import V1CompaniesCompanyUuidExternalPayrollsTaxLiabilitiesFinish
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_payment_configs import V1CompaniesCompanyUuidPaymentConfigs
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_pay_schedules import V1CompaniesCompanyIdPaySchedules
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_pay_schedules_preview import V1CompaniesCompanyIdPaySchedulesPreview
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_pay_schedules_pay_schedule_id import V1CompaniesCompanyIdPaySchedulesPayScheduleId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_pay_periods import V1CompaniesCompanyIdPayPeriods
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_pay_periods_unprocessed_termination_pay_periods import V1CompaniesCompanyIdPayPeriodsUnprocessedTerminationPayPeriods
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_pay_schedules_assignments import V1CompaniesCompanyIdPaySchedulesAssignments
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_pay_schedules_assignment_preview import V1CompaniesCompanyIdPaySchedulesAssignmentPreview
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_pay_schedules_assign import V1CompaniesCompanyIdPaySchedulesAssign
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_employees import V1CompaniesCompanyIdEmployees
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_departments import V1CompaniesCompanyUuidDepartments
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_departments_department_uuid import V1DepartmentsDepartmentUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_departments_department_uuid_add import V1DepartmentsDepartmentUuidAdd
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_departments_department_uuid_remove import V1DepartmentsDepartmentUuidRemove
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id import V1EmployeesEmployeeId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_terminations import V1EmployeesEmployeeIdTerminations
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_terminations_employee_id import V1TerminationsEmployeeId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_rehire import V1EmployeesEmployeeIdRehire
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_employment_history import V1EmployeesEmployeeIdEmploymentHistory
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_home_addresses import V1EmployeesEmployeeIdHomeAddresses
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_home_addresses_home_address_uuid import V1HomeAddressesHomeAddressUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_work_addresses import V1EmployeesEmployeeIdWorkAddresses
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_work_addresses_work_address_uuid import V1WorkAddressesWorkAddressUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_custom_fields import V1EmployeesEmployeeIdCustomFields
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_onboarding_status import V1EmployeesEmployeeIdOnboardingStatus
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_finish_onboarding import V1EmployeesEmployeeIdFinishOnboarding
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_uuid_federal_taxes import V1EmployeesEmployeeUuidFederalTaxes
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_uuid_state_taxes import V1EmployeesEmployeeUuidStateTaxes
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_bank_accounts import V1EmployeesEmployeeIdBankAccounts
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_bank_accounts_bank_account_uuid import V1EmployeesEmployeeIdBankAccountsBankAccountUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_payment_method import V1EmployeesEmployeeIdPaymentMethod
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_jobs import V1EmployeesEmployeeIdJobs
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_uuid_time_off_activities import V1EmployeesEmployeeUuidTimeOffActivities
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_jobs_job_id import V1JobsJobId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_jobs_job_id_compensations import V1JobsJobIdCompensations
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_compensations_compensation_id import V1CompensationsCompensationId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_earning_types import V1CompaniesCompanyIdEarningTypes
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_earning_types_earning_type_uuid import V1CompaniesCompanyIdEarningTypesEarningTypeUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_contractors import V1CompaniesCompanyIdContractors
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractors_contractor_id import V1ContractorsContractorId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractors_contractor_uuid_bank_accounts import V1ContractorsContractorUuidBankAccounts
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_webhook_subscriptions import V1WebhookSubscriptions
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_webhook_subscriptions_webhook_subscription_uuid import V1WebhookSubscriptionsWebhookSubscriptionUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_webhook_subscriptions_webhook_subscription_uuid_verify import V1WebhookSubscriptionsWebhookSubscriptionUuidVerify
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_webhook_subscriptions_webhook_subscription_uuid_request_verification_token import V1WebhookSubscriptionsWebhookSubscriptionUuidRequestVerificationToken
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractors_contractor_uuid_forms import V1ContractorsContractorUuidForms
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractors_contractor_uuid_forms_form_id import V1ContractorsContractorUuidFormsFormId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractors_contractor_uuid_forms_form_id_pdf import V1ContractorsContractorUuidFormsFormIdPdf
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_sandbox_generate_1099 import V1SandboxGenerate1099
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_sandbox_generate_w2 import V1SandboxGenerateW2
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractors_contractor_uuid_payment_method import V1ContractorsContractorUuidPaymentMethod
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractors_contractor_uuid_onboarding_status import V1ContractorsContractorUuidOnboardingStatus
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractors_contractor_uuid_address import V1ContractorsContractorUuidAddress
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_payrolls import V1CompaniesCompanyIdPayrolls
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_payroll_reversals import V1CompaniesCompanyIdPayrollReversals
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_payrolls_payroll_id import V1CompaniesCompanyIdPayrollsPayrollId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_payrolls_payroll_id_prepare import V1CompaniesCompanyIdPayrollsPayrollIdPrepare
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_payrolls_payroll_uuid_receipt import V1PayrollsPayrollUuidReceipt
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_payrolls_payroll_id_employees_employee_id_calculate_accruing_time_off_hours import V1PayrollsPayrollIdEmployeesEmployeeIdCalculateAccruingTimeOffHours
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_payrolls_blockers import V1CompaniesCompanyUuidPayrollsBlockers
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_payrolls_skip import V1CompaniesCompanyUuidPayrollsSkip
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_payrolls_payroll_uuid_gross_up import V1PayrollsPayrollUuidGrossUp
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractor_payments_contractor_payment_uuid_receipt import V1ContractorPaymentsContractorPaymentUuidReceipt
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_contractor_payments_contractor_payment_uuid_fund import V1ContractorPaymentsContractorPaymentUuidFund
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_payrolls_payroll_id_calculate import V1CompaniesCompanyIdPayrollsPayrollIdCalculate
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_payrolls_payroll_id_submit import V1CompaniesCompanyIdPayrollsPayrollIdSubmit
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_payrolls_payroll_id_cancel import V1CompaniesCompanyIdPayrollsPayrollIdCancel
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_contractor_payments import V1CompaniesCompanyIdContractorPayments
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_contractor_payments_contractor_payment_id import V1CompaniesCompanyIdContractorPaymentsContractorPaymentId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_forms import V1CompaniesCompanyIdForms
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_forms_form_id import V1FormsFormId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_forms_form_id_pdf import V1FormsFormIdPdf
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_forms_form_id_sign import V1FormsFormIdSign
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_forms import V1EmployeesEmployeeIdForms
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_forms_form_id import V1EmployeesEmployeeIdFormsFormId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_forms_form_id_pdf import V1EmployeesEmployeeIdFormsFormIdPdf
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_forms_form_id_sign import V1EmployeesEmployeeIdFormsFormIdSign
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_payrolls_payroll_id_employees_employee_id_pay_stub import V1PayrollsPayrollIdEmployeesEmployeeIdPayStub
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_pay_stubs import V1EmployeesEmployeeIdPayStubs
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_generated_documents_document_type_request_uuid import V1GeneratedDocumentsDocumentTypeRequestUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_payrolls_payroll_id_generated_documents_printable_payroll_checks import V1PayrollsPayrollIdGeneratedDocumentsPrintablePayrollChecks
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_id_company_benefits import V1CompaniesCompanyIdCompanyBenefits
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_company_benefits_company_benefit_id import V1CompanyBenefitsCompanyBenefitId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_benefits import V1Benefits
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_benefits_benefit_id import V1BenefitsBenefitId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_company_benefits_company_benefit_id_summary import V1CompanyBenefitsCompanyBenefitIdSummary
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_benefits_benefit_id_requirements import V1BenefitsBenefitIdRequirements
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_employee_benefits import V1EmployeesEmployeeIdEmployeeBenefits
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employee_benefits_employee_benefit_id import V1EmployeeBenefitsEmployeeBenefitId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_ytd_benefit_amounts_from_different_company import V1EmployeesEmployeeIdYtdBenefitAmountsFromDifferentCompany
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_employees_employee_id_garnishments import V1EmployeesEmployeeIdGarnishments
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_garnishments_garnishment_id import V1GarnishmentsGarnishmentId
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_plaid_processor_token import V1PlaidProcessorToken
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_tax_requirements_state import V1CompaniesCompanyUuidTaxRequirementsState
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_tax_requirements import V1CompaniesCompanyUuidTaxRequirements
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_contractor_payments_preview import V1CompaniesCompanyUuidContractorPaymentsPreview
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_time_off_policies_time_off_policy_uuid import V1TimeOffPoliciesTimeOffPolicyUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_time_off_policies import V1CompaniesCompanyUuidTimeOffPolicies
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_time_off_policies_time_off_policy_uuid_add_employees import V1TimeOffPoliciesTimeOffPolicyUuidAddEmployees
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_time_off_policies_time_off_policy_uuid_remove_employees import V1TimeOffPoliciesTimeOffPolicyUuidRemoveEmployees
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_holiday_pay_policy import V1CompaniesCompanyUuidHolidayPayPolicy
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_holiday_pay_policy_add import V1CompaniesCompanyUuidHolidayPayPolicyAdd
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_holiday_pay_policy_remove import V1CompaniesCompanyUuidHolidayPayPolicyRemove
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_paid_holidays import V1CompaniesCompanyUuidPaidHolidays
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_time_off_policies_time_off_policy_uuid_balance import V1TimeOffPoliciesTimeOffPolicyUuidBalance
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_time_off_policies_time_off_policy_uuid_deactivate import V1TimeOffPoliciesTimeOffPolicyUuidDeactivate
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_notifications_notification_uuid import V1NotificationsNotificationUuid
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_events import V1Events
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_recovery_cases import V1CompaniesCompanyUuidRecoveryCases
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_recovery_cases_recovery_case_uuid_redebit import V1RecoveryCasesRecoveryCaseUuidRedebit
+from gusto_embedded_payroll_python_sdk.apis.paths.v1_companies_company_uuid_ach_transactions import V1CompaniesCompanyUuidAchTransactions
+
+PathToApi = typing_extensions.TypedDict(
+    'PathToApi',
+    {
+        PathValues.V1_TOKEN_INFO: V1TokenInfo,
+        PathValues.OAUTH_TOKEN: OauthToken,
+        PathValues.V1_PARTNER_MANAGED_COMPANIES: V1PartnerManagedCompanies,
+        PathValues.V1_COMPANIES_COMPANY_ID: V1CompaniesCompanyId,
+        PathValues.V1_PARTNER_MANAGED_COMPANIES_COMPANY_UUID_MIGRATE: V1PartnerManagedCompaniesCompanyUuidMigrate,
+        PathValues.V1_PARTNER_MANAGED_COMPANIES_COMPANY_UUID_ACCEPT_TERMS_OF_SERVICE: V1PartnerManagedCompaniesCompanyUuidAcceptTermsOfService,
+        PathValues.V1_PARTNER_MANAGED_COMPANIES_COMPANY_UUID_RETRIEVE_TERMS_OF_SERVICE: V1PartnerManagedCompaniesCompanyUuidRetrieveTermsOfService,
+        PathValues.V1_INVOICES_INVOICE_PERIOD: V1InvoicesInvoicePeriod,
+        PathValues.V1_COMPANIES_COMPANY_ID_FEDERAL_TAX_DETAILS: V1CompaniesCompanyIdFederalTaxDetails,
+        PathValues.V1_COMPANIES_COMPANY_ID_INDUSTRY_SELECTION: V1CompaniesCompanyIdIndustrySelection,
+        PathValues.V1_COMPANIES_COMPANY_ID_ADMINS: V1CompaniesCompanyIdAdmins,
+        PathValues.V1_COMPANIES_COMPANY_UUID_SIGNATORIES: V1CompaniesCompanyUuidSignatories,
+        PathValues.V1_COMPANIES_COMPANY_UUID_SIGNATORIES_INVITE: V1CompaniesCompanyUuidSignatoriesInvite,
+        PathValues.V1_COMPANIES_COMPANY_UUID_SIGNATORIES_SIGNATORY_UUID: V1CompaniesCompanyUuidSignatoriesSignatoryUuid,
+        PathValues.V1_COMPANIES_COMPANY_UUID_ONBOARDING_STATUS: V1CompaniesCompanyUuidOnboardingStatus,
+        PathValues.V1_COMPANIES_COMPANY_UUID_FINISH_ONBOARDING: V1CompaniesCompanyUuidFinishOnboarding,
+        PathValues.V1_COMPANIES_COMPANY_ID_CUSTOM_FIELDS: V1CompaniesCompanyIdCustomFields,
+        PathValues.V1_COMPANIES_COMPANY_UUID_FLOWS: V1CompaniesCompanyUuidFlows,
+        PathValues.V1_COMPANIES_COMPANY_ID_LOCATIONS: V1CompaniesCompanyIdLocations,
+        PathValues.V1_LOCATIONS_LOCATION_ID: V1LocationsLocationId,
+        PathValues.V1_LOCATIONS_LOCATION_UUID_MINIMUM_WAGES: V1LocationsLocationUuidMinimumWages,
+        PathValues.V1_COMPANIES_COMPANY_ID_BANK_ACCOUNTS: V1CompaniesCompanyIdBankAccounts,
+        PathValues.V1_COMPANIES_COMPANY_ID_BANK_ACCOUNTS_BANK_ACCOUNT_UUID_VERIFY: V1CompaniesCompanyIdBankAccountsBankAccountUuidVerify,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS: V1CompaniesCompanyUuidExternalPayrolls,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS_EXTERNAL_PAYROLL_ID: V1CompaniesCompanyUuidExternalPayrollsExternalPayrollId,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS_EXTERNAL_PAYROLL_ID_CALCULATE_TAXES: V1CompaniesCompanyUuidExternalPayrollsExternalPayrollIdCalculateTaxes,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS_TAX_LIABILITIES: V1CompaniesCompanyUuidExternalPayrollsTaxLiabilities,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS_TAX_LIABILITIES_FINISH: V1CompaniesCompanyUuidExternalPayrollsTaxLiabilitiesFinish,
+        PathValues.V1_COMPANIES_COMPANY_UUID_PAYMENT_CONFIGS: V1CompaniesCompanyUuidPaymentConfigs,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES: V1CompaniesCompanyIdPaySchedules,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_PREVIEW: V1CompaniesCompanyIdPaySchedulesPreview,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_PAY_SCHEDULE_ID: V1CompaniesCompanyIdPaySchedulesPayScheduleId,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_PERIODS: V1CompaniesCompanyIdPayPeriods,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_PERIODS_UNPROCESSED_TERMINATION_PAY_PERIODS: V1CompaniesCompanyIdPayPeriodsUnprocessedTerminationPayPeriods,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_ASSIGNMENTS: V1CompaniesCompanyIdPaySchedulesAssignments,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_ASSIGNMENT_PREVIEW: V1CompaniesCompanyIdPaySchedulesAssignmentPreview,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_ASSIGN: V1CompaniesCompanyIdPaySchedulesAssign,
+        PathValues.V1_COMPANIES_COMPANY_ID_EMPLOYEES: V1CompaniesCompanyIdEmployees,
+        PathValues.V1_COMPANIES_COMPANY_UUID_DEPARTMENTS: V1CompaniesCompanyUuidDepartments,
+        PathValues.V1_DEPARTMENTS_DEPARTMENT_UUID: V1DepartmentsDepartmentUuid,
+        PathValues.V1_DEPARTMENTS_DEPARTMENT_UUID_ADD: V1DepartmentsDepartmentUuidAdd,
+        PathValues.V1_DEPARTMENTS_DEPARTMENT_UUID_REMOVE: V1DepartmentsDepartmentUuidRemove,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID: V1EmployeesEmployeeId,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_TERMINATIONS: V1EmployeesEmployeeIdTerminations,
+        PathValues.V1_TERMINATIONS_EMPLOYEE_ID: V1TerminationsEmployeeId,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_REHIRE: V1EmployeesEmployeeIdRehire,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_EMPLOYMENT_HISTORY: V1EmployeesEmployeeIdEmploymentHistory,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_HOME_ADDRESSES: V1EmployeesEmployeeIdHomeAddresses,
+        PathValues.V1_HOME_ADDRESSES_HOME_ADDRESS_UUID: V1HomeAddressesHomeAddressUuid,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_WORK_ADDRESSES: V1EmployeesEmployeeIdWorkAddresses,
+        PathValues.V1_WORK_ADDRESSES_WORK_ADDRESS_UUID: V1WorkAddressesWorkAddressUuid,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_CUSTOM_FIELDS: V1EmployeesEmployeeIdCustomFields,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_ONBOARDING_STATUS: V1EmployeesEmployeeIdOnboardingStatus,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FINISH_ONBOARDING: V1EmployeesEmployeeIdFinishOnboarding,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_UUID_FEDERAL_TAXES: V1EmployeesEmployeeUuidFederalTaxes,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_UUID_STATE_TAXES: V1EmployeesEmployeeUuidStateTaxes,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_BANK_ACCOUNTS: V1EmployeesEmployeeIdBankAccounts,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_BANK_ACCOUNTS_BANK_ACCOUNT_UUID: V1EmployeesEmployeeIdBankAccountsBankAccountUuid,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_PAYMENT_METHOD: V1EmployeesEmployeeIdPaymentMethod,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_JOBS: V1EmployeesEmployeeIdJobs,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_UUID_TIME_OFF_ACTIVITIES: V1EmployeesEmployeeUuidTimeOffActivities,
+        PathValues.V1_JOBS_JOB_ID: V1JobsJobId,
+        PathValues.V1_JOBS_JOB_ID_COMPENSATIONS: V1JobsJobIdCompensations,
+        PathValues.V1_COMPENSATIONS_COMPENSATION_ID: V1CompensationsCompensationId,
+        PathValues.V1_COMPANIES_COMPANY_ID_EARNING_TYPES: V1CompaniesCompanyIdEarningTypes,
+        PathValues.V1_COMPANIES_COMPANY_ID_EARNING_TYPES_EARNING_TYPE_UUID: V1CompaniesCompanyIdEarningTypesEarningTypeUuid,
+        PathValues.V1_COMPANIES_COMPANY_ID_CONTRACTORS: V1CompaniesCompanyIdContractors,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_ID: V1ContractorsContractorId,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_BANK_ACCOUNTS: V1ContractorsContractorUuidBankAccounts,
+        PathValues.V1_WEBHOOK_SUBSCRIPTIONS: V1WebhookSubscriptions,
+        PathValues.V1_WEBHOOK_SUBSCRIPTIONS_WEBHOOK_SUBSCRIPTION_UUID: V1WebhookSubscriptionsWebhookSubscriptionUuid,
+        PathValues.V1_WEBHOOK_SUBSCRIPTIONS_WEBHOOK_SUBSCRIPTION_UUID_VERIFY: V1WebhookSubscriptionsWebhookSubscriptionUuidVerify,
+        PathValues.V1_WEBHOOK_SUBSCRIPTIONS_WEBHOOK_SUBSCRIPTION_UUID_REQUEST_VERIFICATION_TOKEN: V1WebhookSubscriptionsWebhookSubscriptionUuidRequestVerificationToken,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_FORMS: V1ContractorsContractorUuidForms,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_FORMS_FORM_ID: V1ContractorsContractorUuidFormsFormId,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_FORMS_FORM_ID_PDF: V1ContractorsContractorUuidFormsFormIdPdf,
+        PathValues.V1_SANDBOX_GENERATE_1099: V1SandboxGenerate1099,
+        PathValues.V1_SANDBOX_GENERATE_W2: V1SandboxGenerateW2,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_PAYMENT_METHOD: V1ContractorsContractorUuidPaymentMethod,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_ONBOARDING_STATUS: V1ContractorsContractorUuidOnboardingStatus,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_ADDRESS: V1ContractorsContractorUuidAddress,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS: V1CompaniesCompanyIdPayrolls,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLL_REVERSALS: V1CompaniesCompanyIdPayrollReversals,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID: V1CompaniesCompanyIdPayrollsPayrollId,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID_PREPARE: V1CompaniesCompanyIdPayrollsPayrollIdPrepare,
+        PathValues.V1_PAYROLLS_PAYROLL_UUID_RECEIPT: V1PayrollsPayrollUuidReceipt,
+        PathValues.V1_PAYROLLS_PAYROLL_ID_EMPLOYEES_EMPLOYEE_ID_CALCULATE_ACCRUING_TIME_OFF_HOURS: V1PayrollsPayrollIdEmployeesEmployeeIdCalculateAccruingTimeOffHours,
+        PathValues.V1_COMPANIES_COMPANY_UUID_PAYROLLS_BLOCKERS: V1CompaniesCompanyUuidPayrollsBlockers,
+        PathValues.V1_COMPANIES_COMPANY_UUID_PAYROLLS_SKIP: V1CompaniesCompanyUuidPayrollsSkip,
+        PathValues.V1_PAYROLLS_PAYROLL_UUID_GROSS_UP: V1PayrollsPayrollUuidGrossUp,
+        PathValues.V1_CONTRACTOR_PAYMENTS_CONTRACTOR_PAYMENT_UUID_RECEIPT: V1ContractorPaymentsContractorPaymentUuidReceipt,
+        PathValues.V1_CONTRACTOR_PAYMENTS_CONTRACTOR_PAYMENT_UUID_FUND: V1ContractorPaymentsContractorPaymentUuidFund,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID_CALCULATE: V1CompaniesCompanyIdPayrollsPayrollIdCalculate,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID_SUBMIT: V1CompaniesCompanyIdPayrollsPayrollIdSubmit,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID_CANCEL: V1CompaniesCompanyIdPayrollsPayrollIdCancel,
+        PathValues.V1_COMPANIES_COMPANY_ID_CONTRACTOR_PAYMENTS: V1CompaniesCompanyIdContractorPayments,
+        PathValues.V1_COMPANIES_COMPANY_ID_CONTRACTOR_PAYMENTS_CONTRACTOR_PAYMENT_ID: V1CompaniesCompanyIdContractorPaymentsContractorPaymentId,
+        PathValues.V1_COMPANIES_COMPANY_ID_FORMS: V1CompaniesCompanyIdForms,
+        PathValues.V1_FORMS_FORM_ID: V1FormsFormId,
+        PathValues.V1_FORMS_FORM_ID_PDF: V1FormsFormIdPdf,
+        PathValues.V1_FORMS_FORM_ID_SIGN: V1FormsFormIdSign,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FORMS: V1EmployeesEmployeeIdForms,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FORMS_FORM_ID: V1EmployeesEmployeeIdFormsFormId,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FORMS_FORM_ID_PDF: V1EmployeesEmployeeIdFormsFormIdPdf,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FORMS_FORM_ID_SIGN: V1EmployeesEmployeeIdFormsFormIdSign,
+        PathValues.V1_PAYROLLS_PAYROLL_ID_EMPLOYEES_EMPLOYEE_ID_PAY_STUB: V1PayrollsPayrollIdEmployeesEmployeeIdPayStub,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_PAY_STUBS: V1EmployeesEmployeeIdPayStubs,
+        PathValues.V1_GENERATED_DOCUMENTS_DOCUMENT_TYPE_REQUEST_UUID: V1GeneratedDocumentsDocumentTypeRequestUuid,
+        PathValues.V1_PAYROLLS_PAYROLL_ID_GENERATED_DOCUMENTS_PRINTABLE_PAYROLL_CHECKS: V1PayrollsPayrollIdGeneratedDocumentsPrintablePayrollChecks,
+        PathValues.V1_COMPANIES_COMPANY_ID_COMPANY_BENEFITS: V1CompaniesCompanyIdCompanyBenefits,
+        PathValues.V1_COMPANY_BENEFITS_COMPANY_BENEFIT_ID: V1CompanyBenefitsCompanyBenefitId,
+        PathValues.V1_BENEFITS: V1Benefits,
+        PathValues.V1_BENEFITS_BENEFIT_ID: V1BenefitsBenefitId,
+        PathValues.V1_COMPANY_BENEFITS_COMPANY_BENEFIT_ID_SUMMARY: V1CompanyBenefitsCompanyBenefitIdSummary,
+        PathValues.V1_BENEFITS_BENEFIT_ID_REQUIREMENTS: V1BenefitsBenefitIdRequirements,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_EMPLOYEE_BENEFITS: V1EmployeesEmployeeIdEmployeeBenefits,
+        PathValues.V1_EMPLOYEE_BENEFITS_EMPLOYEE_BENEFIT_ID: V1EmployeeBenefitsEmployeeBenefitId,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_YTD_BENEFIT_AMOUNTS_FROM_DIFFERENT_COMPANY: V1EmployeesEmployeeIdYtdBenefitAmountsFromDifferentCompany,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_GARNISHMENTS: V1EmployeesEmployeeIdGarnishments,
+        PathValues.V1_GARNISHMENTS_GARNISHMENT_ID: V1GarnishmentsGarnishmentId,
+        PathValues.V1_PLAID_PROCESSOR_TOKEN: V1PlaidProcessorToken,
+        PathValues.V1_COMPANIES_COMPANY_UUID_TAX_REQUIREMENTS_STATE: V1CompaniesCompanyUuidTaxRequirementsState,
+        PathValues.V1_COMPANIES_COMPANY_UUID_TAX_REQUIREMENTS: V1CompaniesCompanyUuidTaxRequirements,
+        PathValues.V1_COMPANIES_COMPANY_UUID_CONTRACTOR_PAYMENTS_PREVIEW: V1CompaniesCompanyUuidContractorPaymentsPreview,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID: V1TimeOffPoliciesTimeOffPolicyUuid,
+        PathValues.V1_COMPANIES_COMPANY_UUID_TIME_OFF_POLICIES: V1CompaniesCompanyUuidTimeOffPolicies,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID_ADD_EMPLOYEES: V1TimeOffPoliciesTimeOffPolicyUuidAddEmployees,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID_REMOVE_EMPLOYEES: V1TimeOffPoliciesTimeOffPolicyUuidRemoveEmployees,
+        PathValues.V1_COMPANIES_COMPANY_UUID_HOLIDAY_PAY_POLICY: V1CompaniesCompanyUuidHolidayPayPolicy,
+        PathValues.V1_COMPANIES_COMPANY_UUID_HOLIDAY_PAY_POLICY_ADD: V1CompaniesCompanyUuidHolidayPayPolicyAdd,
+        PathValues.V1_COMPANIES_COMPANY_UUID_HOLIDAY_PAY_POLICY_REMOVE: V1CompaniesCompanyUuidHolidayPayPolicyRemove,
+        PathValues.V1_COMPANIES_COMPANY_UUID_PAID_HOLIDAYS: V1CompaniesCompanyUuidPaidHolidays,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID_BALANCE: V1TimeOffPoliciesTimeOffPolicyUuidBalance,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID_DEACTIVATE: V1TimeOffPoliciesTimeOffPolicyUuidDeactivate,
+        PathValues.V1_NOTIFICATIONS_NOTIFICATION_UUID: V1NotificationsNotificationUuid,
+        PathValues.V1_EVENTS: V1Events,
+        PathValues.V1_COMPANIES_COMPANY_UUID_RECOVERY_CASES: V1CompaniesCompanyUuidRecoveryCases,
+        PathValues.V1_RECOVERY_CASES_RECOVERY_CASE_UUID_REDEBIT: V1RecoveryCasesRecoveryCaseUuidRedebit,
+        PathValues.V1_COMPANIES_COMPANY_UUID_ACH_TRANSACTIONS: V1CompaniesCompanyUuidAchTransactions,
+    }
+)
+
+path_to_api = PathToApi(
+    {
+        PathValues.V1_TOKEN_INFO: V1TokenInfo,
+        PathValues.OAUTH_TOKEN: OauthToken,
+        PathValues.V1_PARTNER_MANAGED_COMPANIES: V1PartnerManagedCompanies,
+        PathValues.V1_COMPANIES_COMPANY_ID: V1CompaniesCompanyId,
+        PathValues.V1_PARTNER_MANAGED_COMPANIES_COMPANY_UUID_MIGRATE: V1PartnerManagedCompaniesCompanyUuidMigrate,
+        PathValues.V1_PARTNER_MANAGED_COMPANIES_COMPANY_UUID_ACCEPT_TERMS_OF_SERVICE: V1PartnerManagedCompaniesCompanyUuidAcceptTermsOfService,
+        PathValues.V1_PARTNER_MANAGED_COMPANIES_COMPANY_UUID_RETRIEVE_TERMS_OF_SERVICE: V1PartnerManagedCompaniesCompanyUuidRetrieveTermsOfService,
+        PathValues.V1_INVOICES_INVOICE_PERIOD: V1InvoicesInvoicePeriod,
+        PathValues.V1_COMPANIES_COMPANY_ID_FEDERAL_TAX_DETAILS: V1CompaniesCompanyIdFederalTaxDetails,
+        PathValues.V1_COMPANIES_COMPANY_ID_INDUSTRY_SELECTION: V1CompaniesCompanyIdIndustrySelection,
+        PathValues.V1_COMPANIES_COMPANY_ID_ADMINS: V1CompaniesCompanyIdAdmins,
+        PathValues.V1_COMPANIES_COMPANY_UUID_SIGNATORIES: V1CompaniesCompanyUuidSignatories,
+        PathValues.V1_COMPANIES_COMPANY_UUID_SIGNATORIES_INVITE: V1CompaniesCompanyUuidSignatoriesInvite,
+        PathValues.V1_COMPANIES_COMPANY_UUID_SIGNATORIES_SIGNATORY_UUID: V1CompaniesCompanyUuidSignatoriesSignatoryUuid,
+        PathValues.V1_COMPANIES_COMPANY_UUID_ONBOARDING_STATUS: V1CompaniesCompanyUuidOnboardingStatus,
+        PathValues.V1_COMPANIES_COMPANY_UUID_FINISH_ONBOARDING: V1CompaniesCompanyUuidFinishOnboarding,
+        PathValues.V1_COMPANIES_COMPANY_ID_CUSTOM_FIELDS: V1CompaniesCompanyIdCustomFields,
+        PathValues.V1_COMPANIES_COMPANY_UUID_FLOWS: V1CompaniesCompanyUuidFlows,
+        PathValues.V1_COMPANIES_COMPANY_ID_LOCATIONS: V1CompaniesCompanyIdLocations,
+        PathValues.V1_LOCATIONS_LOCATION_ID: V1LocationsLocationId,
+        PathValues.V1_LOCATIONS_LOCATION_UUID_MINIMUM_WAGES: V1LocationsLocationUuidMinimumWages,
+        PathValues.V1_COMPANIES_COMPANY_ID_BANK_ACCOUNTS: V1CompaniesCompanyIdBankAccounts,
+        PathValues.V1_COMPANIES_COMPANY_ID_BANK_ACCOUNTS_BANK_ACCOUNT_UUID_VERIFY: V1CompaniesCompanyIdBankAccountsBankAccountUuidVerify,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS: V1CompaniesCompanyUuidExternalPayrolls,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS_EXTERNAL_PAYROLL_ID: V1CompaniesCompanyUuidExternalPayrollsExternalPayrollId,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS_EXTERNAL_PAYROLL_ID_CALCULATE_TAXES: V1CompaniesCompanyUuidExternalPayrollsExternalPayrollIdCalculateTaxes,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS_TAX_LIABILITIES: V1CompaniesCompanyUuidExternalPayrollsTaxLiabilities,
+        PathValues.V1_COMPANIES_COMPANY_UUID_EXTERNAL_PAYROLLS_TAX_LIABILITIES_FINISH: V1CompaniesCompanyUuidExternalPayrollsTaxLiabilitiesFinish,
+        PathValues.V1_COMPANIES_COMPANY_UUID_PAYMENT_CONFIGS: V1CompaniesCompanyUuidPaymentConfigs,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES: V1CompaniesCompanyIdPaySchedules,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_PREVIEW: V1CompaniesCompanyIdPaySchedulesPreview,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_PAY_SCHEDULE_ID: V1CompaniesCompanyIdPaySchedulesPayScheduleId,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_PERIODS: V1CompaniesCompanyIdPayPeriods,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_PERIODS_UNPROCESSED_TERMINATION_PAY_PERIODS: V1CompaniesCompanyIdPayPeriodsUnprocessedTerminationPayPeriods,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_ASSIGNMENTS: V1CompaniesCompanyIdPaySchedulesAssignments,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_ASSIGNMENT_PREVIEW: V1CompaniesCompanyIdPaySchedulesAssignmentPreview,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAY_SCHEDULES_ASSIGN: V1CompaniesCompanyIdPaySchedulesAssign,
+        PathValues.V1_COMPANIES_COMPANY_ID_EMPLOYEES: V1CompaniesCompanyIdEmployees,
+        PathValues.V1_COMPANIES_COMPANY_UUID_DEPARTMENTS: V1CompaniesCompanyUuidDepartments,
+        PathValues.V1_DEPARTMENTS_DEPARTMENT_UUID: V1DepartmentsDepartmentUuid,
+        PathValues.V1_DEPARTMENTS_DEPARTMENT_UUID_ADD: V1DepartmentsDepartmentUuidAdd,
+        PathValues.V1_DEPARTMENTS_DEPARTMENT_UUID_REMOVE: V1DepartmentsDepartmentUuidRemove,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID: V1EmployeesEmployeeId,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_TERMINATIONS: V1EmployeesEmployeeIdTerminations,
+        PathValues.V1_TERMINATIONS_EMPLOYEE_ID: V1TerminationsEmployeeId,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_REHIRE: V1EmployeesEmployeeIdRehire,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_EMPLOYMENT_HISTORY: V1EmployeesEmployeeIdEmploymentHistory,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_HOME_ADDRESSES: V1EmployeesEmployeeIdHomeAddresses,
+        PathValues.V1_HOME_ADDRESSES_HOME_ADDRESS_UUID: V1HomeAddressesHomeAddressUuid,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_WORK_ADDRESSES: V1EmployeesEmployeeIdWorkAddresses,
+        PathValues.V1_WORK_ADDRESSES_WORK_ADDRESS_UUID: V1WorkAddressesWorkAddressUuid,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_CUSTOM_FIELDS: V1EmployeesEmployeeIdCustomFields,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_ONBOARDING_STATUS: V1EmployeesEmployeeIdOnboardingStatus,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FINISH_ONBOARDING: V1EmployeesEmployeeIdFinishOnboarding,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_UUID_FEDERAL_TAXES: V1EmployeesEmployeeUuidFederalTaxes,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_UUID_STATE_TAXES: V1EmployeesEmployeeUuidStateTaxes,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_BANK_ACCOUNTS: V1EmployeesEmployeeIdBankAccounts,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_BANK_ACCOUNTS_BANK_ACCOUNT_UUID: V1EmployeesEmployeeIdBankAccountsBankAccountUuid,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_PAYMENT_METHOD: V1EmployeesEmployeeIdPaymentMethod,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_JOBS: V1EmployeesEmployeeIdJobs,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_UUID_TIME_OFF_ACTIVITIES: V1EmployeesEmployeeUuidTimeOffActivities,
+        PathValues.V1_JOBS_JOB_ID: V1JobsJobId,
+        PathValues.V1_JOBS_JOB_ID_COMPENSATIONS: V1JobsJobIdCompensations,
+        PathValues.V1_COMPENSATIONS_COMPENSATION_ID: V1CompensationsCompensationId,
+        PathValues.V1_COMPANIES_COMPANY_ID_EARNING_TYPES: V1CompaniesCompanyIdEarningTypes,
+        PathValues.V1_COMPANIES_COMPANY_ID_EARNING_TYPES_EARNING_TYPE_UUID: V1CompaniesCompanyIdEarningTypesEarningTypeUuid,
+        PathValues.V1_COMPANIES_COMPANY_ID_CONTRACTORS: V1CompaniesCompanyIdContractors,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_ID: V1ContractorsContractorId,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_BANK_ACCOUNTS: V1ContractorsContractorUuidBankAccounts,
+        PathValues.V1_WEBHOOK_SUBSCRIPTIONS: V1WebhookSubscriptions,
+        PathValues.V1_WEBHOOK_SUBSCRIPTIONS_WEBHOOK_SUBSCRIPTION_UUID: V1WebhookSubscriptionsWebhookSubscriptionUuid,
+        PathValues.V1_WEBHOOK_SUBSCRIPTIONS_WEBHOOK_SUBSCRIPTION_UUID_VERIFY: V1WebhookSubscriptionsWebhookSubscriptionUuidVerify,
+        PathValues.V1_WEBHOOK_SUBSCRIPTIONS_WEBHOOK_SUBSCRIPTION_UUID_REQUEST_VERIFICATION_TOKEN: V1WebhookSubscriptionsWebhookSubscriptionUuidRequestVerificationToken,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_FORMS: V1ContractorsContractorUuidForms,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_FORMS_FORM_ID: V1ContractorsContractorUuidFormsFormId,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_FORMS_FORM_ID_PDF: V1ContractorsContractorUuidFormsFormIdPdf,
+        PathValues.V1_SANDBOX_GENERATE_1099: V1SandboxGenerate1099,
+        PathValues.V1_SANDBOX_GENERATE_W2: V1SandboxGenerateW2,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_PAYMENT_METHOD: V1ContractorsContractorUuidPaymentMethod,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_ONBOARDING_STATUS: V1ContractorsContractorUuidOnboardingStatus,
+        PathValues.V1_CONTRACTORS_CONTRACTOR_UUID_ADDRESS: V1ContractorsContractorUuidAddress,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS: V1CompaniesCompanyIdPayrolls,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLL_REVERSALS: V1CompaniesCompanyIdPayrollReversals,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID: V1CompaniesCompanyIdPayrollsPayrollId,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID_PREPARE: V1CompaniesCompanyIdPayrollsPayrollIdPrepare,
+        PathValues.V1_PAYROLLS_PAYROLL_UUID_RECEIPT: V1PayrollsPayrollUuidReceipt,
+        PathValues.V1_PAYROLLS_PAYROLL_ID_EMPLOYEES_EMPLOYEE_ID_CALCULATE_ACCRUING_TIME_OFF_HOURS: V1PayrollsPayrollIdEmployeesEmployeeIdCalculateAccruingTimeOffHours,
+        PathValues.V1_COMPANIES_COMPANY_UUID_PAYROLLS_BLOCKERS: V1CompaniesCompanyUuidPayrollsBlockers,
+        PathValues.V1_COMPANIES_COMPANY_UUID_PAYROLLS_SKIP: V1CompaniesCompanyUuidPayrollsSkip,
+        PathValues.V1_PAYROLLS_PAYROLL_UUID_GROSS_UP: V1PayrollsPayrollUuidGrossUp,
+        PathValues.V1_CONTRACTOR_PAYMENTS_CONTRACTOR_PAYMENT_UUID_RECEIPT: V1ContractorPaymentsContractorPaymentUuidReceipt,
+        PathValues.V1_CONTRACTOR_PAYMENTS_CONTRACTOR_PAYMENT_UUID_FUND: V1ContractorPaymentsContractorPaymentUuidFund,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID_CALCULATE: V1CompaniesCompanyIdPayrollsPayrollIdCalculate,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID_SUBMIT: V1CompaniesCompanyIdPayrollsPayrollIdSubmit,
+        PathValues.V1_COMPANIES_COMPANY_ID_PAYROLLS_PAYROLL_ID_CANCEL: V1CompaniesCompanyIdPayrollsPayrollIdCancel,
+        PathValues.V1_COMPANIES_COMPANY_ID_CONTRACTOR_PAYMENTS: V1CompaniesCompanyIdContractorPayments,
+        PathValues.V1_COMPANIES_COMPANY_ID_CONTRACTOR_PAYMENTS_CONTRACTOR_PAYMENT_ID: V1CompaniesCompanyIdContractorPaymentsContractorPaymentId,
+        PathValues.V1_COMPANIES_COMPANY_ID_FORMS: V1CompaniesCompanyIdForms,
+        PathValues.V1_FORMS_FORM_ID: V1FormsFormId,
+        PathValues.V1_FORMS_FORM_ID_PDF: V1FormsFormIdPdf,
+        PathValues.V1_FORMS_FORM_ID_SIGN: V1FormsFormIdSign,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FORMS: V1EmployeesEmployeeIdForms,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FORMS_FORM_ID: V1EmployeesEmployeeIdFormsFormId,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FORMS_FORM_ID_PDF: V1EmployeesEmployeeIdFormsFormIdPdf,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_FORMS_FORM_ID_SIGN: V1EmployeesEmployeeIdFormsFormIdSign,
+        PathValues.V1_PAYROLLS_PAYROLL_ID_EMPLOYEES_EMPLOYEE_ID_PAY_STUB: V1PayrollsPayrollIdEmployeesEmployeeIdPayStub,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_PAY_STUBS: V1EmployeesEmployeeIdPayStubs,
+        PathValues.V1_GENERATED_DOCUMENTS_DOCUMENT_TYPE_REQUEST_UUID: V1GeneratedDocumentsDocumentTypeRequestUuid,
+        PathValues.V1_PAYROLLS_PAYROLL_ID_GENERATED_DOCUMENTS_PRINTABLE_PAYROLL_CHECKS: V1PayrollsPayrollIdGeneratedDocumentsPrintablePayrollChecks,
+        PathValues.V1_COMPANIES_COMPANY_ID_COMPANY_BENEFITS: V1CompaniesCompanyIdCompanyBenefits,
+        PathValues.V1_COMPANY_BENEFITS_COMPANY_BENEFIT_ID: V1CompanyBenefitsCompanyBenefitId,
+        PathValues.V1_BENEFITS: V1Benefits,
+        PathValues.V1_BENEFITS_BENEFIT_ID: V1BenefitsBenefitId,
+        PathValues.V1_COMPANY_BENEFITS_COMPANY_BENEFIT_ID_SUMMARY: V1CompanyBenefitsCompanyBenefitIdSummary,
+        PathValues.V1_BENEFITS_BENEFIT_ID_REQUIREMENTS: V1BenefitsBenefitIdRequirements,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_EMPLOYEE_BENEFITS: V1EmployeesEmployeeIdEmployeeBenefits,
+        PathValues.V1_EMPLOYEE_BENEFITS_EMPLOYEE_BENEFIT_ID: V1EmployeeBenefitsEmployeeBenefitId,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_YTD_BENEFIT_AMOUNTS_FROM_DIFFERENT_COMPANY: V1EmployeesEmployeeIdYtdBenefitAmountsFromDifferentCompany,
+        PathValues.V1_EMPLOYEES_EMPLOYEE_ID_GARNISHMENTS: V1EmployeesEmployeeIdGarnishments,
+        PathValues.V1_GARNISHMENTS_GARNISHMENT_ID: V1GarnishmentsGarnishmentId,
+        PathValues.V1_PLAID_PROCESSOR_TOKEN: V1PlaidProcessorToken,
+        PathValues.V1_COMPANIES_COMPANY_UUID_TAX_REQUIREMENTS_STATE: V1CompaniesCompanyUuidTaxRequirementsState,
+        PathValues.V1_COMPANIES_COMPANY_UUID_TAX_REQUIREMENTS: V1CompaniesCompanyUuidTaxRequirements,
+        PathValues.V1_COMPANIES_COMPANY_UUID_CONTRACTOR_PAYMENTS_PREVIEW: V1CompaniesCompanyUuidContractorPaymentsPreview,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID: V1TimeOffPoliciesTimeOffPolicyUuid,
+        PathValues.V1_COMPANIES_COMPANY_UUID_TIME_OFF_POLICIES: V1CompaniesCompanyUuidTimeOffPolicies,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID_ADD_EMPLOYEES: V1TimeOffPoliciesTimeOffPolicyUuidAddEmployees,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID_REMOVE_EMPLOYEES: V1TimeOffPoliciesTimeOffPolicyUuidRemoveEmployees,
+        PathValues.V1_COMPANIES_COMPANY_UUID_HOLIDAY_PAY_POLICY: V1CompaniesCompanyUuidHolidayPayPolicy,
+        PathValues.V1_COMPANIES_COMPANY_UUID_HOLIDAY_PAY_POLICY_ADD: V1CompaniesCompanyUuidHolidayPayPolicyAdd,
+        PathValues.V1_COMPANIES_COMPANY_UUID_HOLIDAY_PAY_POLICY_REMOVE: V1CompaniesCompanyUuidHolidayPayPolicyRemove,
+        PathValues.V1_COMPANIES_COMPANY_UUID_PAID_HOLIDAYS: V1CompaniesCompanyUuidPaidHolidays,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID_BALANCE: V1TimeOffPoliciesTimeOffPolicyUuidBalance,
+        PathValues.V1_TIME_OFF_POLICIES_TIME_OFF_POLICY_UUID_DEACTIVATE: V1TimeOffPoliciesTimeOffPolicyUuidDeactivate,
+        PathValues.V1_NOTIFICATIONS_NOTIFICATION_UUID: V1NotificationsNotificationUuid,
+        PathValues.V1_EVENTS: V1Events,
+        PathValues.V1_COMPANIES_COMPANY_UUID_RECOVERY_CASES: V1CompaniesCompanyUuidRecoveryCases,
+        PathValues.V1_RECOVERY_CASES_RECOVERY_CASE_UUID_REDEBIT: V1RecoveryCasesRecoveryCaseUuidRedebit,
+        PathValues.V1_COMPANIES_COMPANY_UUID_ACH_TRANSACTIONS: V1CompaniesCompanyUuidAchTransactions,
+    }
+)
